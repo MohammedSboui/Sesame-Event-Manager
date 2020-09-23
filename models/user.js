@@ -15,7 +15,7 @@ const UserSchema = new Schema({
       type:String,
       default : 'user'
   },
-  name:{
+  fullname:{
       type :String,
       required:true
   },

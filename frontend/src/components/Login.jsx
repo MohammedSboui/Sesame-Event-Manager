@@ -3,6 +3,10 @@ import { Card, Icon, Image } from 'semantic-ui-react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Input, Button,Form  } from 'semantic-ui-react'
 import Zoom from '@material-ui/core/Zoom';
+import axios from 'axios';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
@@ -18,9 +22,16 @@ const useStyles = makeStyles((theme) => ({
         margin : '1rem',
         paddingTop : '2rem',
         
-    }
+    },
+    info : {
+      textAlign : 'center',
+      marginLeft : '5rem',
+      marginBottom : '5rem',
+      color:'red'
+  }
 }))
-function Login() {
+function Login(props) {
+    const [error,Seterror] = useState('');
     const classes = useStyles();
     const [form, setForm] = useState({
         username: "",
@@ -37,7 +48,19 @@ function Login() {
         [name]: value
       };
     });
-    console.log(form);
+}
+function submit(){
+  axios.post('/user/login',form).then((res) => {
+    if(!res.data.error){
+      localStorage.setItem('usertoken', res.data);
+      props.history.push('/');
+      //window.location.reload();
+
+   }
+   else{
+     Seterror(res.data.error);
+   }
+  })
 }
   return (
     <Zoom in = {true}>
@@ -57,17 +80,21 @@ function Login() {
                     </Form.Field>
                     
                     
-                    <Button style = {{width:'100%'}} primary>Login</Button>
+                    <Button style = {{width:'100%'}} primary onClick={submit}>Login</Button>
+                    
+                    
+                    
                 </Form> 
                 
             </div>
             
             </Card.Content>
         </Card>
+        <span className={classes.info}>{error}</span>
     </div>
     </Zoom>
     
   );
 }
 
-export default Login;
+export default withRouter(Login);

@@ -1,9 +1,15 @@
+import { PromiseProvider } from 'mongoose';
 import React,{ useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu} from 'semantic-ui-react'
 function Header() {
-    const [activeItem , SetactiveItem] = useState('login');
-    const handleItemClick = (e, { name }) => SetactiveItem(name);
+    const [activeItem , SetactiveItem] = useState('home');
+    const handleItemClick = (e, { name }) => {
+      if(name==='logout'){
+        localStorage.removeItem('usertoken');
+      }
+      SetactiveItem(name);
+    }
   return (
     <div style = {{backgroundColor:'blue'}}>
       <Menu pointing primary color='blue'>
@@ -14,7 +20,7 @@ function Header() {
             onClick={handleItemClick} 
           /></Link>
           
-          <Menu.Menu position='right'>
+          { !localStorage.usertoken && <Menu.Menu position='right'>
           
             <Link to = '/register'><Menu.Item
               name='register'
@@ -29,7 +35,14 @@ function Header() {
               onClick={handleItemClick}
             /></Link>
            
-          </Menu.Menu>
+          </Menu.Menu>}
+          { localStorage.usertoken && <Menu.Menu position='right'>
+          <Link to = '/login'><Menu.Item
+            name='logout'
+            active={activeItem === 'logout'}
+            onClick={handleItemClick}
+          /></Link>
+        </Menu.Menu>}
         </Menu>
     </div>
   );

@@ -7,17 +7,21 @@ const User = require('../models/user')
 process.env.SECRET_KEY = 'secretfdqfkdjlfdsjlkfdsl'
 
 router.post('/register', (req, res) => {
+
+    //console.log(req.body);
     
     const userData = {
       username: req.body.username,
       password: req.body.password,
       role: req.body.role,
-      name:req.body.name,
+      fullname:req.body.fullname,
       banned : false
     }
+
+    //console.log(userData);
   
     User.findOne({
-      username: req.body.username
+      username: userData.username
     })
       .then(user => {
         if (!user) {
@@ -51,9 +55,10 @@ router.post('/register', (req, res) => {
             const payload = {
               _id: user._id,
               username: user.username,
-              email: user.email,
-              projects : user.projects,
-              learn : user.learn
+              role:user.role,
+              fullname:user.fullname,
+              banned:user.banned
+          
             }
             let token = jwt.sign(payload, process.env.SECRET_KEY, {
               expiresIn: 1440
