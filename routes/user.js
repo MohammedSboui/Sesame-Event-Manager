@@ -4,6 +4,8 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+const event = require('../models/event');
+
 process.env.SECRET_KEY = 'secretfdqfkdjlfdsjlkfdsl'
 
 router.post('/register', (req, res) => {
@@ -75,6 +77,14 @@ router.post('/register', (req, res) => {
       .catch(err => {
         res.send('error: ' + err)
       })
+  })
+
+  router.get('/getevents',(req,res)=>{
+    event.find().then(
+        (events) => {
+          res.send(events);
+        }
+    )
   })
   
 module.exports = router

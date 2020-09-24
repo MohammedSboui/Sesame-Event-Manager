@@ -11,7 +11,11 @@ const EventSchema = new Schema({
      type:String,
      required:true
  },
- created_date :{
+ place : {
+     type:String,
+     required:true
+ },
+ date :{
      type : String 
 },
  likes : {

@@ -18,12 +18,12 @@ ReactDOM.render(
     <div>
       <Header/>
       <Switch>
-      <Route path='/addevent' component = {Addevent} />
+       <Route path='/addevent' component = {Addevent} />
         <Route path='/login' component = {Login} />
         <Route path='/Register' component = {Register}/>
         <Route path='/' component={Home}/>
       </Switch>
-      <Footer/>
+      
     </div>
   </BrowserRouter>,
   document.getElementById('root')
