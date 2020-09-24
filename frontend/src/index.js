@@ -11,12 +11,14 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
+import Addevent from './components/Addevent';
 
 ReactDOM.render(
   <BrowserRouter>
     <div>
       <Header/>
       <Switch>
+      <Route path='/addevent' component = {Addevent} />
         <Route path='/login' component = {Login} />
         <Route path='/Register' component = {Register}/>
         <Route path='/' component={Home}/>

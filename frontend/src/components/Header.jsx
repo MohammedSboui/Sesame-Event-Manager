@@ -19,6 +19,11 @@ function Header() {
             active={activeItem === 'home'}
             onClick={handleItemClick} 
           /></Link>
+            <Link to = '/addevent'><Menu.Item
+            name='Add event'
+            active={activeItem === 'Add event'}
+            onClick={handleItemClick} 
+          /></Link>
           
           { !localStorage.usertoken && <Menu.Menu position='right'>
           
