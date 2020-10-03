@@ -2,9 +2,14 @@ import { PromiseProvider } from 'mongoose';
 import React,{ useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu} from 'semantic-ui-react'
+import jwt_decode from 'jwt-decode'
 function Header() {
+    const token = localStorage.usertoken;
+    let decoded ;
+    if(token)decoded = jwt_decode(token);
     const [activeItem , SetactiveItem] = useState('home');
     const handleItemClick = (e, { name }) => {
+      
       if(name==='logout'){
         localStorage.removeItem('usertoken');
       }
@@ -19,11 +24,12 @@ function Header() {
             active={activeItem === 'home'}
             onClick={handleItemClick} 
           /></Link>
-            <Link to = '/addevent'><Menu.Item
+           {decoded && decoded.role === 'admin' && <Link to = '/addevent'><Menu.Item
             name='Add event'
             active={activeItem === 'Add event'}
             onClick={handleItemClick} 
           /></Link>
+          }
           
           { !localStorage.usertoken && <Menu.Menu position='right'>
           

@@ -6,10 +6,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { Image,Icon } from 'semantic-ui-react'
-
+import {Link} from 'react-router-dom'
 export default function CarouselSlide(props) {
-    const {title,content,date,place } = props.content;
-
+    const {title,content,date,place,_id } = props.content;
+    const event_path = 'event/'+_id;
     const useStyles = makeStyles(() => ({
         card: {
             backgroundColor:'#ffe084',
@@ -45,12 +45,13 @@ export default function CarouselSlide(props) {
              
             </CardContent>
             <CardActions>
-                <Button size="medium" color="primary">
-                Make fav
-                </Button>
-                <Button size="medium" color="primary">
-                Learn More
-                </Button>
+                
+                <Link to = {event_path}>
+                    <Button size="medium" color="primary">
+                        Learn More
+                    </Button>
+                </Link>
+                
         </CardActions>
                
             </CardActionArea>

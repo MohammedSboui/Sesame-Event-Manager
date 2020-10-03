@@ -17,10 +17,7 @@ router.post('/addevent',(req,res) => {
         res.send({success})
     }catch (err){
         res.send({error:err});
-    }
-
-    
-    
+    } 
 })
 module.exports = router
 

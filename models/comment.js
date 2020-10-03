@@ -3,10 +3,7 @@ const Schema = mongoose.Schema
 
 // Create Schema
 const CommentSchema = new Schema({
- title : {
-     type : String,
-     required:true
- },
+
  author : {
     type : mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true
  },

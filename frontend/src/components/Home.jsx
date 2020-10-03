@@ -6,6 +6,7 @@ import Slide from '@material-ui/core/Slide';
 import '../styling.css'
 import axios from 'axios';
 
+
 function Arrow(props) {
     const { direction, clickFunction } = props;
     const icon = direction === 'left' ? <FaChevronLeft /> : <FaChevronRight />;
@@ -41,7 +42,6 @@ function Home() {
         const getevents =  async () => axios.get('/user/getevents').then((res)=>{
             SetSLIDE_INFO(res.data);
             SetnumSlides(res.data.length);
-            console.log(SLIDE_INFO);
         })
         getevents();
     },[])

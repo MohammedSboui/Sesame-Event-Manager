@@ -5,7 +5,6 @@ import { Input, Button,Form  } from 'semantic-ui-react'
 import Zoom from '@material-ui/core/Zoom';
 import axios from 'axios';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,7 +53,7 @@ function submit(){
     if(!res.data.error){
       localStorage.setItem('usertoken', res.data);
       props.history.push('/');
-      //window.location.reload();
+      window.location.reload();
 
    }
    else{

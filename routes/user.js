@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 const event = require('../models/event');
-
+const comment = require('../models/comment');
 process.env.SECRET_KEY = 'secretfdqfkdjlfdsjlkfdsl'
 
 router.post('/register', (req, res) => {
@@ -85,6 +85,37 @@ router.post('/register', (req, res) => {
           res.send(events);
         }
     )
+  })
+
+  router.get('/event/:id',(req,res)=> {
+    const id = req.params.id;
+    event.findById(id).then((event)=>{
+      res.status(200).send(event);
+    })
+  })
+
+  router.post('/comment',(req,res)=> {
+    const com = {
+      author : req.body.author,
+      content : req.body.content,
+      event : req.body.event,
+      likes : 0
+    }
+    try{
+      comment.create(com);
+      res.send({success:'comment added !'})
+    }catch (err){
+      res.send({error:err});
+    } 
+  })
+
+  router.get('/comments/:eventid',(req,res)=>{
+    const eventid = req.params.eventid;
+    comment.find({
+      event : eventid 
+    }).populate('author','fullname').then(comments=>{
+      res.status(200).send(comments);
+    })
   })
   
 module.exports = router
