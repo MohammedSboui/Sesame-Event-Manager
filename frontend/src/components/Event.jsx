@@ -95,7 +95,7 @@ function Event(props){
                             <Grid.Row>
                                 <div className={classes.centrify}>
                                     <Image
-                                        src={require('../images/event.jpg')}
+                                        src={'http://localhost:5000/'+event.imageUrl}
                                         size='big'
                                     />
                                 </div>

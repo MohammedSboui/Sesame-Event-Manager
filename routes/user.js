@@ -90,6 +90,7 @@ router.post('/register', (req, res) => {
   router.get('/event/:id',(req,res)=> {
     const id = req.params.id;
     event.findById(id).then((event)=>{
+      console.log(event);
       res.status(200).send(event);
     })
   })
