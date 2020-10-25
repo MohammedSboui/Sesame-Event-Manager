@@ -71,6 +71,13 @@ function Home() {
         )
     }
     else
+    if(!SLIDE_INFO[index]){
+        return(
+            <div>
+               There is no events
+            </div>
+        )
+    }
     return (
         <div className='Carousel'>
             <Arrow

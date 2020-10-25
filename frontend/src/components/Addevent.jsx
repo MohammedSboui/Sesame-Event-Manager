@@ -10,8 +10,7 @@ import { Container } from '@material-ui/core';
 import { DateInput,DateTimeInput} from 'semantic-ui-calendar-react'
 import {generateBase64FromImage} from '../util/generateBase64FromImage';
 
-
-function Addevent(){
+function Addevent(props){
     const [form, setForm] = useState({
         title: "",
         content : '',
@@ -30,17 +29,18 @@ function Addevent(){
           };
         });
     }
-    function submit(){
+    async function  submit(){
         const formData = new FormData();
         formData.append('title',form.title);
         formData.append('content',form.content);
         formData.append('place',form.place);
         formData.append('image',form.image);
         formData.append('date',form.date);
-        axios.post('/admin/addevent',formData).then((res)=> {
+       await axios.post('/admin/addevent',formData).then((res)=> {
           console.log(res);
         }
         )
+        props.history.push('/home')
     }
     function fileChange(event){
       const img = event.target.files[0];
@@ -104,7 +104,7 @@ function Addevent(){
                     </Form.Field>
                     
                     
-                    <Button style = {{width:'100%'}} primary onClick={submit}>Add event</Button>
+                   <Button style = {{width:'100%'}} primary onClick={submit}>Add event</Button>
                     
                 </Form> 
                 <br></br>
@@ -114,4 +114,4 @@ function Addevent(){
     )
 }
 
-export default Addevent;
+export default withRouter(Addevent);

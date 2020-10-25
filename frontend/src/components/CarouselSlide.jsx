@@ -7,8 +7,9 @@ import Button from '@material-ui/core/Button';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { Image,Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import axios from 'axios'
 export default function CarouselSlide(props) {
-    const {title,content,date,place,_id } = props.content;
+    const {title,content,date,place,_id,imageUrl } = props.content;
     const event_path = 'event/'+_id;
     const useStyles = makeStyles(() => ({
         card: {
@@ -17,12 +18,17 @@ export default function CarouselSlide(props) {
             padding: '75px 50px',
             margin: '0px 25px',
             width: '600px',
-            height:'400px',
+            height:'600px',
             boxShadow: '20px 20px 20px black',
             display: 'flex',
             justifyContent: 'center',
         },
     }));
+
+    const deleteEvent = () => {
+        axios.delete('/admin/deletevent/'+_id);
+        window.location.reload();
+    }
 
     const classes = useStyles();
 
@@ -30,7 +36,7 @@ export default function CarouselSlide(props) {
         <Card className={classes.card}>
             <CardActionArea>
                 <Image
-                    src={require('../images/logo.png')}
+                    src={imageUrl}
                     size='small'
                     />
             <span style={{marginRight:'0.5rem'}}>{date}</span><Icon name = 'time'></Icon>
@@ -51,6 +57,9 @@ export default function CarouselSlide(props) {
                         Learn More
                     </Button>
                 </Link>
+                <Button size="medium" color="secondary" onClick={deleteEvent}>
+                        Delete event
+                </Button>
                 
         </CardActions>
                

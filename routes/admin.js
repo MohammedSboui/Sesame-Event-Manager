@@ -22,5 +22,17 @@ router.post('/addevent',uploadPic,(req,res) => {
         res.send({error:err});
     }
 })
+
+router.delete('/deletevent/:id',(req,res) => {
+    const id = req.params.id;
+   
+    event.findByIdAndDelete(id,(err)=>{
+        if(err)console.log(err);
+        else{
+            console.log('rani mrigel');
+        }
+    });
+
+})
 module.exports = router
 
